@@ -8,6 +8,20 @@
       "when": 1788444920790,
       "tag": "0000_huge_guardian",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788457937906,
+      "tag": "0001_hesitant_nightcrawler",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1788458589747,
+      "tag": "0002_quiet_newton_destine",
+      "breakpoints": true
     }
   ]
 }
