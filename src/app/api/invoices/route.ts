@@ -246,6 +246,8 @@ export async function POST(req: Request) {
 
     // Generate unique invoice number for user
     const invoiceNumber = await generateInvoiceNumber(user.id);
+    const { generateSecureToken } = await import("@/lib/public-invoice-utils");
+    const publicToken = generateSecureToken();
 
     // Calculate monetary totals
     const totals = calculateInvoiceTotals(items, tax, discount);
@@ -257,6 +259,7 @@ export async function POST(req: Request) {
         userId: user.id,
         clientId,
         invoiceNumber,
+        publicToken,
         issueDate: new Date(issueDate),
         dueDate: new Date(dueDate),
         subtotal: totals.subtotal,

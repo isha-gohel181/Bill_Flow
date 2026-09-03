@@ -44,6 +44,7 @@ export const invoices = pgTable(
     total: numeric("total", { precision: 12, scale: 2 }).notNull(),
     status: invoiceStatusEnum("status").default("draft").notNull(),
     notes: text("notes"),
+    publicToken: text("public_token").unique(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()
       .notNull(),
