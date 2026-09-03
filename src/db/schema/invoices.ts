@@ -55,6 +55,9 @@ export const invoices = pgTable(
   (table) => [
     index("invoices_user_id_idx").on(table.userId),
     index("invoices_client_id_idx").on(table.clientId),
+    index("invoices_due_date_idx").on(table.dueDate),
+    index("invoices_status_idx").on(table.status),
+    index("invoices_created_at_idx").on(table.createdAt),
     unique("invoices_user_id_invoice_number_unique").on(
       table.userId,
       table.invoiceNumber

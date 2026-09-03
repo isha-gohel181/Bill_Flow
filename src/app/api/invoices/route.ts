@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { invoices, invoiceItems, clients } from "@/db/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, and, or, ilike, count, asc, desc, lt, gte, SQL } from "drizzle-orm";
 import { requireAuth } from "@/lib/auth-utils";
 import { createInvoiceSchema } from "@/lib/validations/invoice";
+import { invoiceQuerySchema } from "@/lib/validations/invoice-query";
 import {
   calculateInvoiceTotals,
   generateInvoiceNumber,
@@ -12,15 +13,124 @@ import {
 
 export const dynamic = "force-dynamic";
 
-// GET /api/invoices — List all invoices for the authenticated user
-export async function GET() {
+// GET /api/invoices — Server-side Search, Filtering, Sorting, and Pagination
+export async function GET(req: Request) {
   try {
     const { user, errorResponse } = await requireAuth();
     if (errorResponse) {
       return errorResponse;
     }
 
-    // Query invoices with basic client info
+    const { searchParams } = new URL(req.url);
+    const rawParams = {
+      search: searchParams.get("search") || undefined,
+      status: searchParams.get("status") || undefined,
+      clientId: searchParams.get("clientId") || undefined,
+      sortBy: searchParams.get("sortBy") || undefined,
+      sortOrder: searchParams.get("sortOrder") || undefined,
+      page: searchParams.get("page") || undefined,
+      limit: searchParams.get("limit") || undefined,
+    };
+
+    const parsed = invoiceQuerySchema.safeParse(rawParams);
+    if (!parsed.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Validation failed",
+          details: parsed.error.format(),
+        },
+        { status: 400 }
+      );
+    }
+
+    const { search, status, clientId, sortBy, sortOrder, page, limit } = parsed.data;
+
+    // Validate client ownership if clientId is provided
+    if (clientId) {
+      const [clientRecord] = await db
+        .select()
+        .from(clients)
+        .where(and(eq(clients.id, clientId), eq(clients.userId, user.id)))
+        .limit(1);
+
+      if (!clientRecord) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Client not found or does not belong to user",
+          },
+          { status: 404 }
+        );
+      }
+    }
+
+    // Build filter conditions
+    const conditions: SQL[] = [eq(invoices.userId, user.id)];
+
+    if (clientId) {
+      conditions.push(eq(invoices.clientId, clientId));
+    }
+
+    if (search) {
+      const searchPattern = `%${search}%`;
+      const searchCondition = or(
+        ilike(invoices.invoiceNumber, searchPattern),
+        ilike(clients.name, searchPattern),
+        ilike(clients.email, searchPattern),
+        ilike(clients.company, searchPattern)
+      );
+      if (searchCondition) {
+        conditions.push(searchCondition);
+      }
+    }
+
+    if (status) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      if (status === "draft") {
+        conditions.push(eq(invoices.status, "draft"));
+      } else if (status === "paid") {
+        conditions.push(eq(invoices.status, "paid"));
+      } else if (status === "sent") {
+        const sentCond = and(eq(invoices.status, "sent"), gte(invoices.dueDate, today));
+        if (sentCond) conditions.push(sentCond);
+      } else if (status === "overdue") {
+        const overdueCond = or(
+          eq(invoices.status, "overdue"),
+          and(eq(invoices.status, "sent"), lt(invoices.dueDate, today))
+        );
+        if (overdueCond) conditions.push(overdueCond);
+      }
+    }
+
+    // Build sort mapping
+    const sortColumnMap = {
+      createdAt: invoices.createdAt,
+      issueDate: invoices.issueDate,
+      dueDate: invoices.dueDate,
+      invoiceNumber: invoices.invoiceNumber,
+      total: invoices.total,
+      status: invoices.status,
+    };
+
+    const sortColumn = sortColumnMap[sortBy] || invoices.createdAt;
+    const orderFn = sortOrder === "asc" ? asc : desc;
+
+    // Calculate total matching records count
+    const whereClause = and(...conditions);
+    const [countResult] = await db
+      .select({ totalCount: count() })
+      .from(invoices)
+      .innerJoin(clients, eq(invoices.clientId, clients.id))
+      .where(whereClause);
+
+    const total = Number(countResult?.totalCount || 0);
+    const totalPages = total > 0 ? Math.ceil(total / limit) : 0;
+    const offset = (page - 1) * limit;
+
+    // Fetch paginated invoices
     const userInvoices = await db
       .select({
         id: invoices.id,
@@ -45,10 +155,12 @@ export async function GET() {
       })
       .from(invoices)
       .innerJoin(clients, eq(invoices.clientId, clients.id))
-      .where(eq(invoices.userId, user.id))
-      .orderBy(desc(invoices.createdAt));
+      .where(whereClause)
+      .orderBy(orderFn(sortColumn))
+      .limit(limit)
+      .offset(offset);
 
-    // Calculate effective overdue status dynamically
+    // Dynamic overdue status formatting for list items
     const formattedInvoices = userInvoices.map((inv) => {
       const effectiveStatus = calculateEffectiveStatus(inv.status, inv.dueDate);
       return {
@@ -61,6 +173,12 @@ export async function GET() {
       {
         success: true,
         invoices: formattedInvoices,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages,
+        },
       },
       { status: 200 }
     );
