@@ -22,7 +22,7 @@ export const AppShell: React.FC<AppShellProps> = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex">
+    <div className="min-h-screen bg-[#F9FBFD] text-[#212529] flex">
       {/* Desktop Sidebar */}
       <Sidebar user={user} onLogout={onLogout} />
 
@@ -50,4 +50,4 @@ export const AppShell: React.FC<AppShellProps> = ({
       <Toaster position="top-right" />
     </div>
   );
-};
+}

@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Menu, Receipt } from "lucide-react";
+import { Menu } from "lucide-react";
 import { UserMenu } from "./UserMenu";
 
 interface HeaderProps {
@@ -19,33 +20,33 @@ export const Header: React.FC<HeaderProps> = ({
   title,
 }) => {
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur px-4 sm:px-6">
+    <header className="lg:hidden sticky top-0 z-20 flex h-14 items-center justify-between gap-4 border-b border-[#DDE2EC] bg-white px-4">
       <div className="flex items-center gap-3">
         <Button
           variant="ghost"
           size="icon"
-          className="lg:hidden"
+          className="h-8 w-8 text-[#212529]"
           onClick={onOpenMobileMenu}
           aria-label="Open sidebar menu"
         >
           <Menu className="h-5 w-5" />
         </Button>
-        <div className="flex items-center gap-2 lg:hidden">
-          <div className="flex h-7 w-7 items-center justify-center rounded bg-indigo-600 text-white font-bold">
-            <Receipt className="h-4 w-4" />
+        <div className="flex items-center gap-2">
+          <div className="h-9 w-9 shrink-0 flex items-center justify-center">
+            <img
+              src="/logo-v4.png"
+              alt="BillFlow Logo"
+              className="h-9 w-9 object-contain"
+            />
           </div>
-          <span className="font-bold text-slate-900 dark:text-slate-100 text-base">
-            BillFlow
+          <span className="font-extrabold text-lg tracking-tight leading-tight">
+            <span className="text-[#714B67]">Bill</span>
+            <span className="text-[#017E84]">Flow</span>
           </span>
         </div>
-        {title && (
-          <h1 className="hidden sm:block text-lg font-semibold text-slate-900 dark:text-slate-100">
-            {title}
-          </h1>
-        )}
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         <UserMenu user={user} onLogout={onLogout} />
       </div>
     </header>

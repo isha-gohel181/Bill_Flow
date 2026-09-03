@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
@@ -40,24 +41,29 @@ export const Sidebar: React.FC<SidebarProps> = ({ user, onLogout }) => {
   };
 
   return (
-    <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 z-30 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800">
+    <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 z-30 bg-white border-r border-[#DDE2EC]">
       {/* Brand Header */}
-      <div className="flex h-16 items-center gap-3 px-6 border-b border-slate-200 dark:border-slate-800">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white font-bold">
-          <Receipt className="h-5 w-5" />
+      <div className="flex h-16 items-center gap-2.5 px-5 border-b border-[#DDE2EC]">
+        <div className="h-10 w-10 shrink-0 flex items-center justify-center">
+          <img
+            src="/logo-v4.png"
+            alt="BillFlow Logo"
+            className="h-10 w-10 object-contain"
+          />
         </div>
-        <div className="flex flex-col">
-          <span className="font-bold text-slate-900 dark:text-slate-100 text-lg leading-none">
-            BillFlow
+        <div className="flex flex-col justify-center">
+          <span className="font-extrabold text-xl leading-tight tracking-tight">
+            <span className="text-[#714B67]">Bill</span>
+            <span className="text-[#017E84]">Flow</span>
           </span>
-          <span className="text-[11px] text-slate-500 font-medium">
-            Invoicing & Billing
+          <span className="text-[11px] text-[#666666] font-medium leading-none mt-0.5">
+            Invoicing System
           </span>
         </div>
       </div>
 
       {/* Navigation Links */}
-      <nav className="flex-1 space-y-1 px-3 py-4">
+      <nav className="flex-1 space-y-1.5 px-3 py-4">
         {navItems.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
           const Icon = item.icon;
@@ -65,13 +71,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ user, onLogout }) => {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-md text-xs transition-colors ${
                 isActive
-                  ? "bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-semibold"
-                  : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100"
+                  ? "bg-slate-100 text-[#017E84] font-semibold border-l-4 border-[#017E84]"
+                  : "text-[#666666] hover:bg-slate-50 hover:text-[#212529] font-medium"
               }`}
             >
-              <Icon className={`h-4 w-4 ${isActive ? "text-indigo-600 dark:text-indigo-400" : ""}`} />
+              <Icon className={`h-4 w-4 ${isActive ? "text-[#017E84]" : "text-[#666666]"}`} />
               {item.label}
             </Link>
           );
@@ -79,19 +85,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ user, onLogout }) => {
       </nav>
 
       {/* User Footer */}
-      <div className="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+      <div className="p-4 border-t border-[#DDE2EC] bg-slate-50/60">
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-3 min-w-0">
-            <Avatar className="h-9 w-9 border border-slate-200 dark:border-slate-700">
-              <AvatarFallback className="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 font-semibold text-xs">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <Avatar className="h-8 w-8 border border-[#DDE2EC]">
+              <AvatarFallback className="bg-[#714B67] text-white font-semibold text-xs">
                 {getInitials(user?.name)}
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col min-w-0">
-              <span className="text-xs font-semibold text-slate-900 dark:text-slate-100 truncate">
+              <span className="text-xs font-semibold text-[#212529] truncate">
                 {user?.name || "User"}
               </span>
-              <span className="text-[11px] text-slate-500 truncate">
+              <span className="text-[11px] text-[#666666] truncate">
                 {user?.email || "user@example.com"}
               </span>
             </div>
@@ -101,7 +107,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ user, onLogout }) => {
               variant="ghost"
               size="icon"
               onClick={onLogout}
-              className="h-8 w-8 text-slate-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/50"
+              className="h-8 w-8 text-[#666666] hover:text-rose-600 hover:bg-rose-50"
               title="Log out"
             >
               <LogOut className="h-4 w-4" />

@@ -1,6 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Receipt, ArrowRight, Zap, BarChart3, Globe, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Zap, BarChart3, Globe, CheckCircle2 } from "lucide-react";
 
 export default function LandingPage() {
   return (
@@ -8,12 +9,17 @@ export default function LandingPage() {
       {/* Navigation Header */}
       <header className="border-b border-[#DDE2EC] bg-white sticky top-0 z-50 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-md bg-[#714B67] flex items-center justify-center text-white font-bold shadow-xs">
-              <Receipt className="h-5 w-5" />
+          <div className="flex items-center gap-2.5">
+            <div className="h-12 w-12 shrink-0 flex items-center justify-center">
+              <img
+                src="/logo-v4.png"
+                alt="BillFlow Logo"
+                className="h-12 w-12 object-contain"
+              />
             </div>
-            <span className="font-bold text-xl tracking-tight text-[#212529]">
-              BillFlow
+            <span className="font-extrabold text-2xl tracking-tight">
+              <span className="text-[#714B67]">Bill</span>
+              <span className="text-[#017E84]">Flow</span>
             </span>
           </div>
           <div className="flex items-center gap-3">

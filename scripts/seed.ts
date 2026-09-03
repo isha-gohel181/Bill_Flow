@@ -55,15 +55,17 @@ async function runSeed() {
     await db.insert(businessSettings).values({
       userId,
       businessName: "BillFlow Studio",
+      logoUrl: "/logo.png",
       currency: "INR",
       invoicePrefix: "INV-",
     });
-    console.log("✅ Business Settings initialized (BillFlow Studio, INR, INV-)");
+    console.log("✅ Business Settings initialized (BillFlow Studio, /logo.png, INR, INV-)");
   } else {
     await db
       .update(businessSettings)
       .set({
         businessName: "BillFlow Studio",
+        logoUrl: "/logo.png",
         currency: "INR",
         invoicePrefix: "INV-",
       })
