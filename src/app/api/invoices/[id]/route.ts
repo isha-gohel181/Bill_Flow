@@ -84,11 +84,19 @@ export async function GET(req: Request, { params }: RouteParams) {
       invoiceData.dueDate
     );
 
+    const { getOrCreateUserSettings } = await import("@/lib/settings-utils");
+    const settings = await getOrCreateUserSettings(user.id);
+
     return NextResponse.json(
       {
         success: true,
         invoice: {
           ...invoiceData,
+          business: {
+            name: settings.businessName,
+            logoUrl: settings.logoUrl,
+            currency: settings.currency,
+          },
           status: effectiveStatus,
           items,
         },

@@ -66,13 +66,17 @@ export function calculateInvoiceTotals(
 }
 
 export async function generateInvoiceNumber(userId: string): Promise<string> {
+  const { getOrCreateUserSettings } = await import("@/lib/settings-utils");
+  const settings = await getOrCreateUserSettings(userId);
+  const prefix = (settings.invoicePrefix || "INV-").trim();
+
   const userInvoices = await db
     .select({ invoiceNumber: invoices.invoiceNumber })
     .from(invoices)
     .where(eq(invoices.userId, userId));
 
   let maxNum = 0;
-  const regex = /^INV-(\d+)$/i;
+  const regex = /(\d+)$/;
 
   for (const inv of userInvoices) {
     const match = inv.invoiceNumber.match(regex);
@@ -86,7 +90,7 @@ export async function generateInvoiceNumber(userId: string): Promise<string> {
 
   const nextNum = maxNum + 1;
   const padded = String(nextNum).padStart(4, "0");
-  return `INV-${padded}`;
+  return `${prefix}${padded}`;
 }
 
 export function calculateEffectiveStatus(

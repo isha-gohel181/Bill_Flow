@@ -36,6 +36,13 @@
       "when": 1788460942692,
       "tag": "0004_careless_galactus",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1788461467505,
+      "tag": "0005_unusual_rawhide_kid",
+      "breakpoints": true
     }
   ]
 }

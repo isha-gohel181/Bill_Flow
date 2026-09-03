@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { invoices, invoiceItems, clients } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { calculateEffectiveStatus } from "@/lib/invoice-utils";
+import { getOrCreateUserSettings } from "@/lib/settings-utils";
 
 export const dynamic = "force-dynamic";
 
@@ -29,6 +30,7 @@ export async function GET(req: Request, { params }: RouteParams) {
     const [invoiceData] = await db
       .select({
         id: invoices.id,
+        userId: invoices.userId,
         invoiceNumber: invoices.invoiceNumber,
         status: invoices.status,
         issueDate: invoices.issueDate,
@@ -73,6 +75,9 @@ export async function GET(req: Request, { params }: RouteParams) {
       .from(invoiceItems)
       .where(eq(invoiceItems.invoiceId, invoiceData.id));
 
+    // Fetch business settings for invoice owner
+    const settings = await getOrCreateUserSettings(invoiceData.userId);
+
     const effectiveStatus = calculateEffectiveStatus(
       invoiceData.status,
       invoiceData.dueDate
@@ -88,6 +93,11 @@ export async function GET(req: Request, { params }: RouteParams) {
           invoiceNumber: invoiceData.invoiceNumber,
           status: effectiveStatus,
           isPayable,
+          business: {
+            name: settings.businessName,
+            logoUrl: settings.logoUrl,
+            currency: settings.currency,
+          },
           issueDate: invoiceData.issueDate,
           dueDate: invoiceData.dueDate,
           subtotal: invoiceData.subtotal,
