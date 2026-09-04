@@ -60,7 +60,7 @@ export default function SignupPage() {
         {/* Form Card */}
         <Card className="border-[#DDE2EC] bg-white text-[#212529] shadow-xs">
           <CardHeader className="text-center pt-6 pb-2 space-y-2">
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center justify-center gap-1.5">
               <img
                 src="/logo-v4.png"
                 alt="BillFlow Logo"

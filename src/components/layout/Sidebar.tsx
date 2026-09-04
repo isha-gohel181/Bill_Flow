@@ -43,7 +43,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ user, onLogout }) => {
   return (
     <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 z-30 bg-white border-r border-[#DDE2EC]">
       {/* Brand Header */}
-      <div className="flex h-16 items-center gap-2.5 px-5 border-b border-[#DDE2EC]">
+      <div className="flex h-16 items-center gap-1.5 px-5 border-b border-[#DDE2EC]">
         <div className="h-10 w-10 shrink-0 flex items-center justify-center">
           <img
             src="/logo-v4.png"

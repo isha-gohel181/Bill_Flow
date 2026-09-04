@@ -31,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
         >
           <Menu className="h-5 w-5" />
         </Button>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <div className="h-9 w-9 shrink-0 flex items-center justify-center">
             <img
               src="/logo-v4.png"

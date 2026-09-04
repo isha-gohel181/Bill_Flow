@@ -9,7 +9,7 @@ export default function LandingPage() {
       {/* Navigation Header */}
       <header className="border-b border-[#DDE2EC] bg-white sticky top-0 z-50 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-1.5">
             <div className="h-12 w-12 shrink-0 flex items-center justify-center">
               <img
                 src="/logo-v4.png"
@@ -37,13 +37,13 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="flex-1 flex flex-col items-center justify-center text-center px-4 py-16 lg:py-24">
-        <div className="max-w-3xl mx-auto space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-teal-200 bg-teal-50 text-[#017E84] text-xs font-semibold uppercase tracking-wider">
-            <span>Simple Invoicing for Freelancers & Studios</span>
-          </div>
+      {/* Hero Section with Ambient Background */}
+      <section className="relative overflow-hidden flex-1 flex flex-col items-center justify-center text-center px-4 py-16 lg:py-24">
+        {/* Ambient Subtle Gradient Blobs */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-[#017E84]/15 to-[#714B67]/15 rounded-full blur-3xl pointer-events-none -z-10" />
+        <div className="absolute inset-0 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:24px_24px] opacity-35 pointer-events-none -z-20" />
 
+        <div className="max-w-3xl mx-auto space-y-6">
           <h1 className="text-3xl sm:text-5xl font-extrabold text-[#212529] tracking-tight leading-tight">
             Professional Invoicing & Payment Tracking Made Simple
           </h1>
@@ -54,15 +54,53 @@ export default function LandingPage() {
 
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link href="/signup">
-              <Button size="lg" className="bg-[#017E84] hover:bg-[#01686D] text-white px-6 h-11 text-xs font-medium shadow-xs">
+              <Button size="lg" className="bg-[#017E84] hover:bg-[#01686D] text-white px-6 h-11 text-xs font-semibold shadow-md transition-all hover:shadow-lg">
                 Get Started Free <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
             <Link href="/login">
-              <Button variant="outline" size="lg" className="border-[#DDE2EC] text-[#212529] bg-white hover:bg-slate-50 h-11 px-6 text-xs font-medium">
+              <Button variant="outline" size="lg" className="border-[#DDE2EC] text-[#212529] bg-white hover:bg-slate-50 h-11 px-6 text-xs font-semibold shadow-xs">
                 Sign In to Dashboard
               </Button>
             </Link>
+          </div>
+
+          {/* Hero Visual Mockup Preview */}
+          <div className="pt-8 max-w-4xl mx-auto">
+            <div className="bg-white border border-[#DDE2EC] rounded-xl shadow-xl p-4 sm:p-6 text-left relative overflow-hidden">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                <div className="flex items-center gap-2">
+                  <div className="h-3 w-3 rounded-full bg-rose-400" />
+                  <div className="h-3 w-3 rounded-full bg-amber-400" />
+                  <div className="h-3 w-3 rounded-full bg-emerald-400" />
+                  <span className="text-xs font-semibold text-slate-500 ml-2">BillFlow Workspace</span>
+                </div>
+                <span className="text-[11px] font-semibold text-[#017E84] bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-100">Live Preview</span>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                  <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Total Revenue</p>
+                  <p className="text-lg font-bold text-slate-800 font-mono">$148,500.00</p>
+                </div>
+                <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                  <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Outstanding</p>
+                  <p className="text-lg font-bold text-amber-600 font-mono">$24,000.00</p>
+                </div>
+                <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                  <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Invoices Paid</p>
+                  <p className="text-lg font-bold text-emerald-600 font-mono">18 / 20</p>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between p-2.5 bg-teal-50/50 rounded-lg border border-teal-100 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono font-bold text-[#017E84]">INV-2026-004</span>
+                  <span className="font-medium text-slate-700">Acme Corp Studio</span>
+                </div>
+                <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">PAID</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
