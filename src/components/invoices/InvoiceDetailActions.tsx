@@ -56,6 +56,7 @@ export const InvoiceDetailActions: React.FC<InvoiceDetailActionsProps> = ({
 
       setShareUrl(res.url);
       setShareOpen(true);
+      toast.success("Public invoice link generated!");
       // If sharing converted a draft invoice to sent status on backend, refresh invoice data
       onRefresh();
     } catch (err: any) {

@@ -94,6 +94,7 @@ export async function GET(req: Request, { params }: RouteParams) {
           status: effectiveStatus,
           isPayable,
           business: {
+            businessName: settings.businessName,
             name: settings.businessName,
             logoUrl: settings.logoUrl,
             currency: settings.currency,

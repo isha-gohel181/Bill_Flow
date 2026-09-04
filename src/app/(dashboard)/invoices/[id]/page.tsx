@@ -53,6 +53,17 @@ export default function InvoiceDetailPage({ params }: InvoiceDetailPageProps) {
     }
   }, [id]);
 
+  const refreshInvoiceData = useCallback(async () => {
+    try {
+      const invoiceRes = await invoicesApi.getInvoice(id);
+      if (invoiceRes.success && invoiceRes.invoice) {
+        setInvoice(invoiceRes.invoice);
+      }
+    } catch (err) {
+      console.error("Failed to refresh invoice:", err);
+    }
+  }, [id]);
+
   useEffect(() => {
     if (id) {
       loadData();
@@ -100,7 +111,7 @@ export default function InvoiceDetailPage({ params }: InvoiceDetailPageProps) {
       {/* Top Control Panel Actions */}
       <InvoiceDetailActions
         invoice={invoice}
-        onRefresh={loadData}
+        onRefresh={refreshInvoiceData}
         onDownloadPdf={handleDownloadPdf}
       />
 

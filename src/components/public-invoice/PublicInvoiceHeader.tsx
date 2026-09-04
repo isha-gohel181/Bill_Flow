@@ -15,27 +15,24 @@ export const PublicInvoiceHeader: React.FC<PublicInvoiceHeaderProps> = ({
   invoice,
   business,
 }) => {
-  const businessName = business?.businessName || "BillFlow Business";
+  const businessName = business?.businessName || (business as any)?.name || "BillFlow Studio";
 
   return (
     <div className="flex flex-col sm:flex-row justify-between items-start gap-6 border-b border-[#DDE2EC] pb-6">
       {/* Business Branding */}
-      <div className="space-y-2">
-        {business?.logoUrl ? (
-          <div className="relative h-12 w-48 max-w-full">
-            <Image
+      <div className="flex items-center gap-3">
+        {business?.logoUrl && (
+          <div className="h-10 w-10 shrink-0 flex items-center justify-center">
+            <img
               src={business.logoUrl}
               alt={businessName}
-              fill
-              className="object-contain object-left"
-              priority
+              className="h-10 w-10 object-contain"
             />
           </div>
-        ) : (
-          <h2 className="text-xl font-bold tracking-tight text-[#714B67]">
-            {businessName}
-          </h2>
         )}
+        <h2 className="text-xl font-bold tracking-tight text-[#714B67]">
+          {businessName}
+        </h2>
       </div>
 
       {/* Invoice Title & Dates */}

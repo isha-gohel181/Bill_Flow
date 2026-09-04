@@ -135,7 +135,7 @@ export default function SettingsPage() {
         </div>
         <Button
           type="submit"
-          disabled={saving || !isDirty}
+          disabled={saving}
           className="bg-[#017E84] hover:bg-[#01686D] text-white font-medium rounded-md text-sm px-4 py-2 shadow-xs self-start sm:self-auto disabled:opacity-40"
         >
           {saving ? (

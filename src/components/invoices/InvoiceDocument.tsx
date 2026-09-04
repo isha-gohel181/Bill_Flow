@@ -26,22 +26,19 @@ export const InvoiceDocument: React.FC<InvoiceDocumentProps> = ({
     >
       {/* Document Header: Business Logo/Name + Invoice Title & Dates */}
       <div className="flex flex-col sm:flex-row justify-between items-start gap-6 border-b border-[#DDE2EC] pb-6">
-        <div className="space-y-2">
-          {settings?.logoUrl ? (
-            <div className="relative h-12 w-48 max-w-full">
-              <Image
+        <div className="flex items-center gap-3">
+          {settings?.logoUrl && (
+            <div className="h-10 w-10 shrink-0 flex items-center justify-center">
+              <img
                 src={settings.logoUrl}
                 alt={businessName}
-                fill
-                className="object-contain object-left"
-                priority
+                className="h-10 w-10 object-contain"
               />
             </div>
-          ) : (
-            <h2 className="text-xl font-bold tracking-tight text-[#714B67]">
-              {businessName}
-            </h2>
           )}
+          <h2 className="text-xl font-bold tracking-tight text-[#714B67]">
+            {businessName}
+          </h2>
         </div>
 
         <div className="text-left sm:text-right space-y-1.5">
