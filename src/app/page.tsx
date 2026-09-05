@@ -5,9 +5,17 @@ import { ArrowRight, Zap, BarChart3, Globe, CheckCircle2 } from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[#F9FBFD] text-[#212529] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#F9FBFD] text-[#212529] flex flex-col font-sans relative overflow-hidden">
+      {/* Ambient Decorative Background Watermarks with B1.png */}
+      <div className="fixed -top-16 -right-16 w-[450px] h-[450px] opacity-[0.12] pointer-events-none z-0 select-none">
+        <img src="/B1.png" alt="" className="w-full h-full object-contain" />
+      </div>
+      <div className="fixed top-1/2 -left-20 w-[350px] h-[350px] opacity-[0.08] pointer-events-none z-0 select-none hidden md:block">
+        <img src="/B1.png" alt="" className="w-full h-full object-contain" />
+      </div>
+
       {/* Navigation Header */}
-      <header className="border-b border-[#DDE2EC] bg-white sticky top-0 z-50 shadow-xs">
+      <header className="border-b border-[#DDE2EC] bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             <div className="h-12 w-12 shrink-0 flex items-center justify-center">
@@ -38,7 +46,7 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section with Ambient Background */}
-      <section className="relative overflow-hidden flex-1 flex flex-col items-center justify-center text-center px-4 py-16 lg:py-24">
+      <section className="relative z-10 overflow-hidden flex-1 flex flex-col items-center justify-center text-center px-4 py-16 lg:py-24">
         {/* Ambient Subtle Gradient Blobs */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-[#017E84]/15 to-[#714B67]/15 rounded-full blur-3xl pointer-events-none -z-10" />
         <div className="absolute inset-0 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:24px_24px] opacity-35 pointer-events-none -z-20" />
@@ -68,7 +76,12 @@ export default function LandingPage() {
           {/* Hero Visual Mockup Preview */}
           <div className="pt-8 max-w-4xl mx-auto">
             <div className="bg-white border border-[#DDE2EC] rounded-xl shadow-xl p-4 sm:p-6 text-left relative overflow-hidden">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+              {/* Background B1 Watermark inside Dashboard Mockup */}
+              <div className="absolute right-[-20px] bottom-[-20px] w-48 h-48 opacity-[0.08] pointer-events-none z-0">
+                <img src="/B1.png" alt="" className="w-full h-full object-contain" />
+              </div>
+
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4 relative z-10">
                 <div className="flex items-center gap-2">
                   <div className="h-3 w-3 rounded-full bg-rose-400" />
                   <div className="h-3 w-3 rounded-full bg-amber-400" />
@@ -78,22 +91,22 @@ export default function LandingPage() {
                 <span className="text-[11px] font-semibold text-[#017E84] bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-100">Live Preview</span>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
-                <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4 relative z-10">
+                <div className="p-3 bg-slate-50/90 backdrop-blur-xs rounded-lg border border-slate-100">
                   <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Total Revenue</p>
                   <p className="text-lg font-bold text-slate-800 font-mono">$148,500.00</p>
                 </div>
-                <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                <div className="p-3 bg-slate-50/90 backdrop-blur-xs rounded-lg border border-slate-100">
                   <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Outstanding</p>
                   <p className="text-lg font-bold text-amber-600 font-mono">$24,000.00</p>
                 </div>
-                <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                <div className="p-3 bg-slate-50/90 backdrop-blur-xs rounded-lg border border-slate-100">
                   <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Invoices Paid</p>
                   <p className="text-lg font-bold text-emerald-600 font-mono">18 / 20</p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between p-2.5 bg-teal-50/50 rounded-lg border border-teal-100 text-xs">
+              <div className="flex items-center justify-between p-2.5 bg-teal-50/50 rounded-lg border border-teal-100 text-xs relative z-10">
                 <div className="flex items-center gap-2">
                   <span className="font-mono font-bold text-[#017E84]">INV-2026-004</span>
                   <span className="font-medium text-slate-700">Acme Corp Studio</span>
@@ -106,7 +119,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features Grid Section */}
-      <section className="py-16 bg-white border-t border-[#DDE2EC] px-4">
+      <section className="relative z-10 py-16 bg-white/80 backdrop-blur-xs border-t border-[#DDE2EC] px-4">
         <div className="max-w-7xl mx-auto space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <h2 className="text-2xl font-bold text-[#212529]">
@@ -118,7 +131,7 @@ export default function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-md bg-[#F9FBFD] border border-[#DDE2EC] space-y-3">
+            <div className="p-6 rounded-md bg-[#F9FBFD]/90 backdrop-blur-xs border border-[#DDE2EC] space-y-3">
               <div className="h-10 w-10 rounded-md bg-teal-50 text-[#017E84] flex items-center justify-center border border-teal-100">
                 <Zap className="h-5 w-5" />
               </div>
@@ -128,7 +141,7 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="p-6 rounded-md bg-[#F9FBFD] border border-[#DDE2EC] space-y-3">
+            <div className="p-6 rounded-md bg-[#F9FBFD]/90 backdrop-blur-xs border border-[#DDE2EC] space-y-3">
               <div className="h-10 w-10 rounded-md bg-purple-50 text-[#714B67] flex items-center justify-center border border-purple-100">
                 <Globe className="h-5 w-5" />
               </div>
@@ -138,7 +151,7 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="p-6 rounded-md bg-[#F9FBFD] border border-[#DDE2EC] space-y-3">
+            <div className="p-6 rounded-md bg-[#F9FBFD]/90 backdrop-blur-xs border border-[#DDE2EC] space-y-3">
               <div className="h-10 w-10 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100">
                 <BarChart3 className="h-5 w-5" />
               </div>
@@ -152,21 +165,21 @@ export default function LandingPage() {
       </section>
 
       {/* Benefits List */}
-      <section className="py-12 bg-[#F9FBFD] border-t border-[#DDE2EC] px-4">
+      <section className="relative z-10 py-12 bg-[#F9FBFD]/70 backdrop-blur-xs border-t border-[#DDE2EC] px-4">
         <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-          <div className="flex items-center gap-2.5 p-3 rounded-md bg-white border border-[#DDE2EC]">
+          <div className="flex items-center gap-2.5 p-3 rounded-md bg-white/90 border border-[#DDE2EC]">
             <CheckCircle2 className="h-4 w-4 text-[#017E84] shrink-0" />
             <span className="font-medium text-[#212529]">Multi-Currency Support (INR, USD, EUR, GBP, AUD, CAD)</span>
           </div>
-          <div className="flex items-center gap-2.5 p-3 rounded-md bg-white border border-[#DDE2EC]">
+          <div className="flex items-center gap-2.5 p-3 rounded-md bg-white/90 border border-[#DDE2EC]">
             <CheckCircle2 className="h-4 w-4 text-[#017E84] shrink-0" />
             <span className="font-medium text-[#212529]">Customizable Business Logo & Invoice Prefixes</span>
           </div>
-          <div className="flex items-center gap-2.5 p-3 rounded-md bg-white border border-[#DDE2EC]">
+          <div className="flex items-center gap-2.5 p-3 rounded-md bg-white/90 border border-[#DDE2EC]">
             <CheckCircle2 className="h-4 w-4 text-[#017E84] shrink-0" />
             <span className="font-medium text-[#212529]">Browser Print & PDF Document Export</span>
           </div>
-          <div className="flex items-center gap-2.5 p-3 rounded-md bg-white border border-[#DDE2EC]">
+          <div className="flex items-center gap-2.5 p-3 rounded-md bg-white/90 border border-[#DDE2EC]">
             <CheckCircle2 className="h-4 w-4 text-[#017E84] shrink-0" />
             <span className="font-medium text-[#212529]">Paid Invoice Protection & Dynamic Overdue Resolution</span>
           </div>
@@ -174,7 +187,7 @@ export default function LandingPage() {
       </section>
 
       {/* Call To Action Footer Banner */}
-      <section className="py-12 bg-white border-t border-[#DDE2EC] px-4 text-center">
+      <section className="relative z-10 py-12 bg-white/80 backdrop-blur-xs border-t border-[#DDE2EC] px-4 text-center">
         <div className="max-w-2xl mx-auto space-y-4">
           <h2 className="text-xl font-bold text-[#212529]">Ready to Streamline Your Billing?</h2>
           <p className="text-xs text-[#666666]">
@@ -189,7 +202,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[#DDE2EC] bg-[#F9FBFD] py-6 px-4 text-center text-xs text-[#666666]">
+      <footer className="relative z-10 border-t border-[#DDE2EC] bg-[#F9FBFD]/80 backdrop-blur-xs py-6 px-4 text-center text-xs text-[#666666]">
         <p>© {new Date().getFullYear()} BillFlow Invoicing System. All rights reserved.</p>
       </footer>
     </div>

@@ -22,7 +22,12 @@ export const AppShell: React.FC<AppShellProps> = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#F9FBFD] text-[#212529] flex">
+    <div className="min-h-screen bg-[#F9FBFD] text-[#212529] flex relative overflow-x-hidden">
+      {/* Subtle Ambient Dashboard Background Watermark B1.png */}
+      <div className="fixed right-[-60px] bottom-[-60px] w-96 h-96 opacity-[0.07] pointer-events-none z-0 select-none overflow-hidden hidden sm:block">
+        <img src="/B1.png" alt="" className="w-full h-full object-contain" />
+      </div>
+
       {/* Desktop Sidebar */}
       <Sidebar user={user} onLogout={onLogout} />
 
@@ -35,7 +40,7 @@ export const AppShell: React.FC<AppShellProps> = ({
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 lg:pl-64 flex flex-col min-w-0">
+      <div className="flex-1 lg:pl-64 flex flex-col min-w-0 z-10 relative">
         <Header
           onOpenMobileMenu={() => setMobileMenuOpen(true)}
           user={user}
@@ -50,4 +55,4 @@ export const AppShell: React.FC<AppShellProps> = ({
       <Toaster position="top-right" />
     </div>
   );
-}
+};
