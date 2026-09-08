@@ -1,6 +1,6 @@
 # BillFlow — Professional Invoicing & Payment Tracking System
 
-BillFlow is a full-stack SaaS invoicing application designed for freelancers, agencies, and small studios. Built with an Odoo-inspired UI design system, BillFlow provides automated financial calculations, client contact management, server-side invoice filtering, browser print and downloadable PDF generation, public shareable links, and simulated client test payments.
+BillFlow is a full-stack SaaS invoicing application designed for freelancers, agencies, and small studios. Built with a modern, custom UI design system, BillFlow provides automated financial calculations, client contact management, server-side invoice filtering, browser print and downloadable PDF generation, public shareable links, and simulated client test payments.
 
 ---
 
